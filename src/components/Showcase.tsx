@@ -94,7 +94,7 @@ export default function Showcase() {
         <div className="p-4 border border-neutral-700 bg-neutral-900 rounded-[32px] mt-20 relative dark:bg-neutral-800">
           <div className="p-2 bg-neutral-900 border border-neutral-700 rounded-[24px]">
             <Image
-              src="/map.png"
+              src="/home.png"
               alt="header"
               width={1920}
               height={1080}
