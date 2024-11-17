@@ -97,6 +97,7 @@ const ChatbotPage = () => {
       if (!res.ok) throw new Error("Failed to fetch response");
 
       const data = await res.json();
+      console.log("Backend response:", data.response); // Log the response
 
       setBotTyping(false);
       simulateTyping(data.response);
@@ -146,8 +147,10 @@ const ChatbotPage = () => {
   };
 
   const simulateTyping = (text: string) => {
-    let i = 0;
+    let i = -1;
     const words = text.split(" ");
+    console.log('words: ', words)
+    
 
     setMessages((prev) => [
       ...prev.slice(0, -1),
@@ -163,7 +166,7 @@ const ChatbotPage = () => {
         return;
       }
 
-      if (i < words.length) {
+      if (i < words.length-1) {
         setMessages((prev) => [
           ...prev.slice(0, -1),
           { role: "bot", content: prev[prev.length - 1]?.content + (i > 0 ? " " : "") + words[i] },
