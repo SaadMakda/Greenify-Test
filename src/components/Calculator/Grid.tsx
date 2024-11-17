@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { StatCards } from "./StatCards";
 import { ActivityInputs } from "./ActivityInputs";
 import { UsageRadar } from "./UsageRadar";
-import { RecentTransactions } from "./RecentTransactions";
 
 export const Grid = () => {
   const [sustainabilityScore, setSustainabilityScore] = useState(0);

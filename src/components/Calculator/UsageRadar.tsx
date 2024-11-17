@@ -12,11 +12,26 @@ interface UsageRadarProps {
 }
 
 export const UsageRadar = ({ score }: UsageRadarProps) => {
+  // Function to calculate the color based on the score
+  const getColor = (score: number): string => {
+    let hue: number;
+    if (score <= 50) {
+      // From red (0°) to yellow (60°)
+      hue = (score / 50) * 60;
+    } else {
+      // From yellow (60°) to green (120°)
+      hue = 60 + ((score - 50) / 50) * 60;
+    }
+    return `hsl(${hue}, 85%, 50%)`;
+  };
+
+  const color = getColor(score);
+
   const data = {
     datasets: [
       {
         data: [score, 100 - score],
-        backgroundColor: ["#4caf50", "#e0e0e0"],
+        backgroundColor: [color, "#e0e0e0"],
         borderWidth: 0,
       },
     ],
@@ -42,7 +57,9 @@ export const UsageRadar = ({ score }: UsageRadarProps) => {
         <div className="relative w-48 h-48">
           <Doughnut data={data} options={options} />
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-4xl font-bold text-green-500">{score}</span>
+            <span className="text-4xl font-bold" style={{ color: color }}>
+              {score}
+            </span>
             <span className="text-sm text-stone-500">Sustainability Score</span>
           </div>
         </div>
