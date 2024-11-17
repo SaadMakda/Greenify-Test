@@ -76,15 +76,15 @@ const GlowingChip = ({ children }: { children: string }) => {
 const SplashButton = ({ children, className, ...rest }: ButtonProps) => {
     return (
       <Link
-        href="/dashboard"
-        className={twMerge(
-          "rounded-md bg-gradient-to-br from-green-400 to-green-700 px-4 py-2 text-zinc-50 ring-2 ring-green-500/50 ring-offset-2 ring-offset-zinc-950 transition-all hover:scale-[1.02] hover:ring-transparent active:scale-[0.98] active:ring-green-500/70",
-          className
-        )}
-        {...rest}
+      href="/dashboard"
+      className={twMerge(
+        "rounded-md bg-gradient-to-br from-green-400 to-green-700 px-4 py-2 text-zinc-50 ring-2 ring-green-500/50 ring-offset-2 ring-offset-zinc-950 transition-all hover:scale-[1.02] hover:ring-transparent active:scale-[0.98] active:ring-green-500/70",
+        className
+      )}
+      {...rest}
       >
-        {children}
-      </Link>
+      {children}
+    </Link>
     );
   };
   

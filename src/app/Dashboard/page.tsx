@@ -1,11 +1,17 @@
-import { Dashboard } from "@/components/Dashboard/Dashboard";
-import { Sidebar } from "@/components/Sidebar/Sidebar";
+'use client';
 
-export default function DashboardPage() {
+import Dashboard from "@/components/Dashboard/Dashboard";
+import Sidebar from "@/components/Sidebar/Sidebar";
+
+
+const DashboardPage = () => {
   return (
-    <main className="grid gap-4 p-4 grid-cols-[220px,_1fr]">
+    <div className="flex">
       <Sidebar />
       <Dashboard />
-    </main>
+    </div>
   );
-}
+};
+
+export default DashboardPage;
+
