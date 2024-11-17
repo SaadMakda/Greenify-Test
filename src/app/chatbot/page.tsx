@@ -232,17 +232,17 @@ const ChatbotPage = () => {
   };
 
   return (
-    <main className="grid gap-4 p-4 grid-cols-[220px,_1fr] h-screen">
+    <main className="grid gap-4 p-4 grid-cols-[220px,_1fr] h-screen bg-gray-900 text-white">
       <Sidebar />
       <div className="flex flex-col h-full">
-        <div className="flex-1 overflow-y-auto p-4 border border-gray-300 rounded bg-gray-50 relative">
+        <div className="flex-1 overflow-y-auto p-4 border border-gray-700 rounded bg-gray-800 relative">
           {messages.map((message, index) => (
             <div
               key={index}
               className={`flex ${message.role === "user" ? "justify-end" : "justify-start"} mb-4`}
             >
               <div
-                className={`max-w-[75%] p-3 rounded-2xl ${message.role === "user" ? "bg-indigo-500 text-white" : "bg-gray-200 text-black"
+                className={`max-w-[75%] p-3 rounded-2xl ${message.role === "user" ? "bg-indigo-600 text-white" : "bg-gray-700 text-gray-300"
                   }`}
               >
                 {message.content === "." ? dotAnimation : message.content}
@@ -255,7 +255,7 @@ const ChatbotPage = () => {
                 <button
                   key={index}
                   onClick={() => handleFollowUpClick(question)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-full mr-2"
+                  className="bg-blue-600 text-white px-4 py-2 rounded-full mr-2"
                 >
                   {question}
                 </button>
@@ -269,11 +269,11 @@ const ChatbotPage = () => {
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="flex-1 p-2 border border-gray-300 rounded"
+            className="flex-1 p-2 border border-gray-700 rounded bg-gray-800 text-white placeholder-gray-500"
             placeholder="Type your message"
           />
           <button
-            className={`text-white p-2 rounded ${botTyping ? 'bg-red-500' : 'bg-blue-500'}`}
+            className={`text-white p-2 rounded ${botTyping ? 'bg-red-600' : 'bg-blue-600'}`}
             onClick={() => handleChat()}
             disabled={loading}
           >
@@ -283,6 +283,7 @@ const ChatbotPage = () => {
       </div>
     </main>
   );
+  
 };
 
 export default ChatbotPage;

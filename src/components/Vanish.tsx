@@ -8,10 +8,12 @@ export function Vanish({
   placeholders,
   onChange,
   onSubmit,
+  className
 }: {
   placeholders: string[];
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  className?: string;
 }) {
   const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
 
@@ -42,7 +44,7 @@ export function Vanish({
     };
   }, [placeholders]);
 
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const newDataRef = useRef<any[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState("");
@@ -116,16 +118,20 @@ export function Vanish({
           newArr.push(current);
         }
       }
+
       newDataRef.current = newArr;
+
       const ctx = canvasRef.current?.getContext("2d");
       if (ctx) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvasRef.current!.width, canvasRef.current!.height);
         newDataRef.current.forEach((particle) => {
           const { x, y, r, color } = particle;
           ctx.fillStyle = color;
           ctx.fillRect(x, y, r, r);
         });
       }
+
+      // When animation is finished, submit and reset
       if (newDataRef.current.length === 0) {
         setValue("");
         setAnimating(false);
@@ -136,7 +142,8 @@ export function Vanish({
       }
     };
     animateFrame();
-  };
+};
+
 
   const vanishAndSubmit = () => {
     if (!inputRef.current || !value) return;

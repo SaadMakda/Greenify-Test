@@ -2,6 +2,7 @@
 
 export type EmissionLevel = 'green' | 'orange' | 'red';
 
+
 export interface StateEmissionData {
   state: string;
   level: EmissionLevel;

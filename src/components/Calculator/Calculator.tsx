@@ -4,7 +4,7 @@ import { Grid } from "./Grid";
 
 const Calculator = () => {
   return (
-    <div className="bg-white rounded-lg pb-4 shadow">
+    <div className="bg-gray-800 text-white rounded-lg pb-4 shadow-lg">
       <TopBar />
       <Grid />
     </div>

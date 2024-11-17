@@ -19,7 +19,7 @@ export const Grid = () => {
       <div className="col-span-12 lg:col-span-6 flex flex-col gap-6">
         <UsageRadar score={sustainabilityScore} />
 
-        <div className="w-full h-96 bg-white rounded border border-stone-300 shadow flex items-center justify-center">
+        <div className="w-full h-96 bg-gray-800 text-white rounded border border-stone-600 shadow-lg flex items-center justify-center">
           <GrowingTree score={sustainabilityScore} />
         </div>
       </div>

@@ -52,7 +52,7 @@ export const GrowingTree = ({ score }: GrowingTreeProps) => {
              ${svgWidth / 2 + trunkWidth / 2},${svgHeight}
             Z
           `}
-          fill="#8B4513"
+          fill="#8B4513" // Brown color for the trunk
           className="tree-trunk"
         />
 
@@ -68,7 +68,7 @@ export const GrowingTree = ({ score }: GrowingTreeProps) => {
              ${svgWidth / 2},${svgHeight - trunkHeight}
             Z
           `}
-          fill="#4CAF50"
+          fill="#4CAF50" // Green color for the canopy
           className="tree-canopy"
         />
       </svg>

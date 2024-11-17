@@ -85,155 +85,156 @@ export const ActivityInputs = ({ onScoreChange }: ActivityInputsProps) => {
   }, [formData, onScoreChange]);
 
   return (
-    <div className="p-6 border rounded-lg shadow bg-white w-full">
-      <h2 className="text-xl font-semibold mb-8 text-center">Sustainability Metrics</h2>
-      <form className="space-y-24">
-        <div>
-          <label className="block text-md font-medium mb-4" htmlFor="energyEfficiency">
-            Energy Efficiency (kWh/㎡): <span className="font-semibold">{formData.energyEfficiency}</span>
-          </label>
-          <input
-            type="range"
-            name="energyEfficiency"
-            id="energyEfficiency"
-            value={formData.energyEfficiency}
-            onChange={handleChange}
-            min={ranges.energyEfficiency.min}
-            max={ranges.energyEfficiency.max}
-            step="1"
-            className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
-          />
-        </div>
-        <div>
-          <label className="block text-md font-medium mb-4" htmlFor="waterConservation">
-            Water Conservation (%): <span className="font-semibold">{formData.waterConservation}%</span>
-          </label>
-          <input
-            type="range"
-            name="waterConservation"
-            id="waterConservation"
-            value={formData.waterConservation}
-            onChange={handleChange}
-            min={ranges.waterConservation.min}
-            max={ranges.waterConservation.max}
-            step="1"
-            className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
-          />
-        </div>
-        <div>
-          <label className="block text-md font-medium mb-4" htmlFor="wasteManagement">
-            Waste Management (%): <span className="font-semibold">{formData.wasteManagement}%</span>
-          </label>
-          <input
-            type="range"
-            name="wasteManagement"
-            id="wasteManagement"
-            value={formData.wasteManagement}
-            onChange={handleChange}
-            min={ranges.wasteManagement.min}
-            max={ranges.wasteManagement.max}
-            step="1"
-            className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
-          />
-        </div>
-        <div>
-          <label className="block text-md font-medium mb-4" htmlFor="carbonFootprint">
-            Carbon Footprint (kg CO₂): <span className="font-semibold">{formData.carbonFootprint}</span>
-          </label>
-          <input
-            type="range"
-            name="carbonFootprint"
-            id="carbonFootprint"
-            value={formData.carbonFootprint}
-            onChange={handleChange}
-            min={ranges.carbonFootprint.min}
-            max={ranges.carbonFootprint.max}
-            step="1"
-            className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
-          />
-        </div>
-        <div>
-          <label className="block text-md font-medium mb-4" htmlFor="indoorAirQuality">
-            Indoor Air Quality (%): <span className="font-semibold">{formData.indoorAirQuality}%</span>
-          </label>
-          <input
-            type="range"
-            name="indoorAirQuality"
-            id="indoorAirQuality"
-            value={formData.indoorAirQuality}
-            onChange={handleChange}
-            min={ranges.indoorAirQuality.min}
-            max={ranges.indoorAirQuality.max}
-            step="1"
-            className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
-          />
-        </div>
-      </form>
-
-      {/* Custom styles for the sliders */}
-      <style jsx>{`
-        input[type='range'].green-slider {
-          -webkit-appearance: none;
-          width: 100%;
-          background: transparent;
-        }
-        input[type='range'].green-slider:focus {
-          outline: none;
-        }
-        input[type='range'].green-slider::-webkit-slider-runnable-track {
-          width: 100%;
-          height: 10px;
-          cursor: pointer;
-          background: #d1d5db;
-          border-radius: 5px;
-        }
-        input[type='range'].green-slider::-webkit-slider-thumb {
-          height: 24px;
-          width: 24px;
-          border-radius: 50%;
-          background: #4caf50; /* Green color */
-          cursor: pointer;
-          -webkit-appearance: none;
-          margin-top: -7px; /* Center the thumb */
-        }
-        input[type='range'].green-slider::-moz-range-track {
-          width: 100%;
-          height: 10px;
-          cursor: pointer;
-          background: #d1d5db;
-          border-radius: 5px;
-        }
-        input[type='range'].green-slider::-moz-range-thumb {
-          height: 24px;
-          width: 24px;
-          border-radius: 50%;
-          background: #4caf50;
-          cursor: pointer;
-        }
-        input[type='range'].green-slider::-ms-track {
-          width: 100%;
-          height: 10px;
-          cursor: pointer;
-          background: transparent;
-          border-color: transparent;
-          color: transparent;
-        }
-        input[type='range'].green-slider::-ms-fill-lower {
-          background: #d1d5db;
-          border-radius: 5px;
-        }
-        input[type='range'].green-slider::-ms-fill-upper {
-          background: #d1d5db;
-          border-radius: 5px;
-        }
-        input[type='range'].green-slider::-ms-thumb {
-          height: 24px;
-          width: 24px;
-          border-radius: 50%;
-          background: #4caf50;
-          cursor: pointer;
-        }
-      `}</style>
+    <div className="p-6 border rounded-lg shadow bg-gray-800 w-full">
+  <h2 className="text-xl font-semibold mb-8 text-center text-white">Sustainability Metrics</h2>
+  <form className="space-y-24">
+    <div>
+      <label className="block text-md font-medium mb-4 text-gray-300" htmlFor="energyEfficiency">
+        Energy Efficiency (kWh/㎡): <span className="font-semibold">{formData.energyEfficiency}</span>
+      </label>
+      <input
+        type="range"
+        name="energyEfficiency"
+        id="energyEfficiency"
+        value={formData.energyEfficiency}
+        onChange={handleChange}
+        min={ranges.energyEfficiency.min}
+        max={ranges.energyEfficiency.max}
+        step="1"
+        className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
+      />
     </div>
+    <div>
+      <label className="block text-md font-medium mb-4 text-gray-300" htmlFor="waterConservation">
+        Water Conservation (%): <span className="font-semibold">{formData.waterConservation}%</span>
+      </label>
+      <input
+        type="range"
+        name="waterConservation"
+        id="waterConservation"
+        value={formData.waterConservation}
+        onChange={handleChange}
+        min={ranges.waterConservation.min}
+        max={ranges.waterConservation.max}
+        step="1"
+        className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
+      />
+    </div>
+    <div>
+      <label className="block text-md font-medium mb-4 text-gray-300" htmlFor="wasteManagement">
+        Waste Management (%): <span className="font-semibold">{formData.wasteManagement}%</span>
+      </label>
+      <input
+        type="range"
+        name="wasteManagement"
+        id="wasteManagement"
+        value={formData.wasteManagement}
+        onChange={handleChange}
+        min={ranges.wasteManagement.min}
+        max={ranges.wasteManagement.max}
+        step="1"
+        className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
+      />
+    </div>
+    <div>
+      <label className="block text-md font-medium mb-4 text-gray-300" htmlFor="carbonFootprint">
+        Carbon Footprint (kg CO₂): <span className="font-semibold">{formData.carbonFootprint}</span>
+      </label>
+      <input
+        type="range"
+        name="carbonFootprint"
+        id="carbonFootprint"
+        value={formData.carbonFootprint}
+        onChange={handleChange}
+        min={ranges.carbonFootprint.min}
+        max={ranges.carbonFootprint.max}
+        step="1"
+        className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
+      />
+    </div>
+    <div>
+      <label className="block text-md font-medium mb-4 text-gray-300" htmlFor="indoorAirQuality">
+        Indoor Air Quality (%): <span className="font-semibold">{formData.indoorAirQuality}%</span>
+      </label>
+      <input
+        type="range"
+        name="indoorAirQuality"
+        id="indoorAirQuality"
+        value={formData.indoorAirQuality}
+        onChange={handleChange}
+        min={ranges.indoorAirQuality.min}
+        max={ranges.indoorAirQuality.max}
+        step="1"
+        className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
+      />
+    </div>
+  </form>
+
+  {/* Custom styles for the sliders */}
+  <style jsx>{`
+    input[type='range'].green-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      background: transparent;
+    }
+    input[type='range'].green-slider:focus {
+      outline: none;
+    }
+    input[type='range'].green-slider::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 10px;
+      cursor: pointer;
+      background: #4a5568; /* Darker track for dark theme */
+      border-radius: 5px;
+    }
+    input[type='range'].green-slider::-webkit-slider-thumb {
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      background: #48bb78; /* Green thumb */
+      cursor: pointer;
+      -webkit-appearance: none;
+      margin-top: -7px; /* Center the thumb */
+    }
+    input[type='range'].green-slider::-moz-range-track {
+      width: 100%;
+      height: 10px;
+      cursor: pointer;
+      background: #4a5568;
+      border-radius: 5px;
+    }
+    input[type='range'].green-slider::-moz-range-thumb {
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      background: #48bb78;
+      cursor: pointer;
+    }
+    input[type='range'].green-slider::-ms-track {
+      width: 100%;
+      height: 10px;
+      cursor: pointer;
+      background: transparent;
+      border-color: transparent;
+      color: transparent;
+    }
+    input[type='range'].green-slider::-ms-fill-lower {
+      background: #4a5568;
+      border-radius: 5px;
+    }
+    input[type='range'].green-slider::-ms-fill-upper {
+      background: #4a5568;
+      border-radius: 5px;
+    }
+    input[type='range'].green-slider::-ms-thumb {
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      background: #48bb78;
+      cursor: pointer;
+    }
+  `}</style>
+</div>
+
   );
 };
