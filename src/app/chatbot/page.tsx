@@ -6,16 +6,17 @@ import API_BASE_URL from "@/api";
 
 const ChatbotPage = () => {
   const [messages, setMessages] = useState<{ role: "user" | "bot"; content: string }[]>([]);
-  const [prompt, setPrompt] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [dotAnimation, setDotAnimation] = useState("");
-  const [botTyping, setBotTyping] = useState(false);
+  const [prompt, setPrompt] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [dotAnimation, setDotAnimation] = useState<string>("");
+  const [botTyping, setBotTyping] = useState<boolean>(false);
   const [followUpQuestions, setFollowUpQuestions] = useState<string[]>([]);
-  const [cancelTyping, setCancelTyping] = useState(false);
+  const [cancelTyping, setCancelTyping] = useState<boolean>(false);
+  const [botResponseCount, setBotResponseCount] = useState<number>(0); // Track AI responses
 
   const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const activeRequestRef = useRef<AbortController | null>(null);
-  const stopTypingFlag = useRef(false);
+  const stopTypingFlag = useRef<boolean>(false);
 
   useEffect(() => {
     const greetUser = () => {
@@ -35,7 +36,7 @@ const ChatbotPage = () => {
         setDotAnimation("");
         setMessages((prev) => [
           ...prev.slice(0, -1),
-          { role: "bot", content: "Hello! Ask me about CBRE?" },
+          { role: "bot", content: "Hello! Ask me about CBRE's Sustainability Initiatives!" },
         ]);
         setBotTyping(false);
       }, 2000);
@@ -99,7 +100,7 @@ const ChatbotPage = () => {
       const data = await res.json();
       console.log("Backend response:", data.response); // Log the response
 
-      setBotTyping(false);
+      
       simulateTyping(data.response);
     } catch (error) {
       if (abortController.signal.aborted) {
@@ -147,10 +148,12 @@ const ChatbotPage = () => {
   };
 
   const simulateTyping = (text: string) => {
+    // Increment bot response count after finishing typing
+    setBotResponseCount((prev) => prev + 1);
+    
     let i = -1;
     const words = text.split(" ");
     console.log('words: ', words)
-    
 
     setMessages((prev) => [
       ...prev.slice(0, -1),
@@ -165,6 +168,7 @@ const ChatbotPage = () => {
         typingIntervalRef.current = null;
         return;
       }
+
 
       if (i < words.length-1) {
         setMessages((prev) => [
@@ -222,6 +226,10 @@ const ChatbotPage = () => {
     }
   };
 
+  const handleButtonClick = (question: string) => {
+    handleChat(question); // Handle the click by passing the question as a custom prompt
+  };
+
   return (
     <main className="grid gap-4 p-4 grid-cols-[220px,_1fr] h-screen">
       <Sidebar />
@@ -240,13 +248,13 @@ const ChatbotPage = () => {
               </div>
             </div>
           ))}
-          {followUpQuestions.length > 0 && (
-            <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex gap-4">
+          {followUpQuestions.length > 0 && botResponseCount < 2 && ( // Show follow-ups only if AI has less than 2 responses
+            <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2">
               {followUpQuestions.map((question, index) => (
                 <button
                   key={index}
                   onClick={() => handleFollowUpClick(question)}
-                  className="bg-indigo-500 text-white px-3 py-2 rounded-full hover:bg-indigo-600"
+                  className="bg-blue-500 text-white px-4 py-2 rounded-full mr-2"
                 >
                   {question}
                 </button>
@@ -254,29 +262,21 @@ const ChatbotPage = () => {
             </div>
           )}
         </div>
-        <div className="mt-4 flex items-center">
+        <div className="flex gap-2 mt-4">
           <textarea
-            className="flex-grow p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            placeholder="Type your message..."
+            rows={1}
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                handleChat();
-              }
-            }}
-            rows={1}
+            onKeyDown={handleKeyDown}
+            className="flex-1 p-2 border border-gray-300 rounded"
+            placeholder="Type your message"
           />
           <button
-            onClick={() => (cancelTyping ? stopTyping() : handleChat())} // Handle cancel or send
-            disabled={loading || (!prompt.trim() && !cancelTyping)} // Disable when appropriate
-            className={`ml-2 px-4 py-2 rounded-full text-white ${cancelTyping
-                ? "bg-red-500 hover:bg-red-600" // Styling for cancel button
-                : "bg-indigo-500 hover:bg-indigo-600" // Styling for send button
-              }`}
+            className={`text-white p-2 rounded ${botTyping ? 'bg-red-500' : 'bg-blue-500'}`}
+            onClick={() => handleChat()}
+            disabled={loading}
           >
-            {cancelTyping ? "Cancel" : "Send"} {/* Toggle button text */}
+            {loading ? "Loading..." : botTyping ? "Cancel" : "Send"}
           </button>
         </div>
       </div>
