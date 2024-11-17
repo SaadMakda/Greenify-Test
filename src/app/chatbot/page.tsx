@@ -102,6 +102,7 @@ const ChatbotPage = () => {
 
       
       simulateTyping(data.response);
+      setBotTyping(false);
     } catch (error) {
       if (abortController.signal.aborted) {
         console.log("Fetch request aborted");
