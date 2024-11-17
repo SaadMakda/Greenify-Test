@@ -10,6 +10,22 @@ const ChatbotPage = () => {
   const [loading, setLoading] = useState(false); // Loading state
   const [dotAnimation, setDotAnimation] = useState(""); // Dots for thinking animation
   const [botTyping, setBotTyping] = useState(false); // To manage typing animation
+  const [followUpQuestions, setFollowUpQuestions] = useState<string[]>([]); // Store follow-up questions
+
+  // Effect to handle the dot animation during bot "thinking"
+  useEffect(() => {
+    let dotCount = 1;
+    let dotInterval: NodeJS.Timeout;
+
+    if (botTyping) {
+      dotInterval = setInterval(() => {
+        dotCount = (dotCount % 3) + 1; // Increment dot count, reset at 4
+        setDotAnimation(".".repeat(dotCount)); // Display dots from 1 to 3
+      }, 500); // Adjust typing speed here
+    }
+
+    return () => clearInterval(dotInterval); // Clean up the interval on unmount
+  }, [botTyping]);
 
   const handleChat = async () => {
     if (!prompt.trim()) return; // Prevent empty submissions
@@ -22,15 +38,6 @@ const ChatbotPage = () => {
     // Add a temporary typing indicator for the bot with 1 dot initially
     setMessages((prev) => [...prev, { role: "bot", content: "." }]);
     setBotTyping(true);
-
-    // Start dot animation
-    let dotCount = 1;
-    const dotInterval = setInterval(() => {
-      setDotAnimation((prev) => {
-        dotCount = (dotCount % 3) + 1; // Increment dot count, reset at 4
-        return ".".repeat(dotCount); // Display dots from 1 to 3
-      });
-    }, 500); // Adjust typing speed here
 
     try {
       const res = await fetch(`${API_BASE_URL}/chat`, {
@@ -47,9 +54,26 @@ const ChatbotPage = () => {
 
       const data = await res.json();
 
-      // Replace the "thinking" dots with the actual bot response
-      clearInterval(dotInterval); // Stop the dot animation
-      simulateTyping(data.response); // Start typing effect for response
+      // Stop the dot animation and replace it with the actual bot response
+      setBotTyping(false);
+
+      // Simulate typing effect for bot response
+      simulateTyping(data.response);
+
+      // Fetch follow-up questions
+      const followUpRes = await fetch(`${API_BASE_URL}/follow_up_questions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt })
+      });
+
+      if (followUpRes.ok) {
+        const followUpData = await followUpRes.json();
+        setFollowUpQuestions(followUpData.questions);
+      }
+
     } catch (error) {
       console.error(error);
       setMessages((prev) => [
@@ -74,9 +98,19 @@ const ChatbotPage = () => {
       } else {
         clearInterval(typingInterval);
         setLoading(false);
-        setBotTyping(false); // End typing animation
       }
     }, 100); // Adjust typing speed here
+  };
+
+  // Handle follow-up question click
+  const handleFollowUpClick = async (question: string) => {
+    setMessages((prev) => [...prev, { role: "user", content: question }]);
+
+    // Set prompt to the follow-up question
+    setPrompt(question);
+
+    // Re-trigger the handleChat function for follow-up
+    handleChat();
   };
 
   return (
@@ -92,21 +126,36 @@ const ChatbotPage = () => {
               } mb-4`}
             >
               <div
-                className={`max-w-[75%] p-3 rounded-2xl text-black ${
+                className={`max-w-[75%] p-3 rounded-2xl ${
                   message.role === "user"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200"
+                    ? "bg-indigo-500 text-white"
+                    : "bg-gray-200 text-black"
                 }`}
               >
-                {message.content === "..." ? dotAnimation : message.content}
+                {message.content === "." ? dotAnimation : message.content}
               </div>
             </div>
           ))}
+
+          {/* Display follow-up questions if any */}
+          {followUpQuestions.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-4">
+              {followUpQuestions.map((question, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleFollowUpClick(question)}
+                  className="bg-indigo-500 text-white p-2 rounded-full hover:bg-indigo-600"
+                >
+                  {question}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="mt-4 flex items-center">
           <textarea
-            className="flex-grow p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-grow p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
             placeholder="Type your message..."
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
@@ -116,7 +165,7 @@ const ChatbotPage = () => {
             onClick={handleChat}
             disabled={loading}
             className={`ml-2 px-4 py-2 rounded-full text-white ${
-              loading ? "bg-gray-500" : "bg-blue-500 hover:bg-blue-600"
+              loading ? "bg-gray-500" : "bg-indigo-500 hover:bg-indigo-600"
             }`}
           >
             {loading ? "Sending..." : "Send"}
