@@ -1,21 +1,20 @@
+"use client";
+
 import React from "react";
 import { IconType } from "react-icons";
-import {
-  FiDollarSign,
-  FiHome,
-  FiLink,
-  FiPaperclip,
-  FiUsers,
-} from "react-icons/fi";
+import StaggeredDropDown from "./StaggeredDropdown"; // Corrected import (Ensure file name and path are correct)
+import { FiDollarSign, FiHome, FiLink, FiPaperclip, FiUsers } from "react-icons/fi";
 
 export const RouteSelect = () => {
   return (
     <div className="space-y-1">
+      {/* Render Route Button */}
       <Route Icon={FiHome} selected={true} title="Dashboard" />
-      <Route Icon={FiUsers} selected={false} title="Team" />
-      <Route Icon={FiPaperclip} selected={false} title="Invoices" />
-      <Route Icon={FiLink} selected={false} title="Integrations" />
-      <Route Icon={FiDollarSign} selected={false} title="Finance" />
+      
+      {/* Call StaggeredDropdown */}
+      <div className="mt-4">
+        <StaggeredDropDown />
+      </div>
     </div>
   );
 };
@@ -42,3 +41,5 @@ const Route = ({
     </button>
   );
 };
+
+
