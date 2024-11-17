@@ -60,7 +60,7 @@ export const UsageRadar = ({ score }: UsageRadarProps) => {
             <span className="text-4xl font-bold" style={{ color: color }}>
               {score}
             </span>
-            <span className="text-sm text-stone-500">Sustainability Score</span>
+            <span className="text-sm text-white-500">Sustainability Score</span>
           </div>
         </div>
       </div>
