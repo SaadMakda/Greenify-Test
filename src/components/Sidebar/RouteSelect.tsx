@@ -27,9 +27,11 @@ export const RouteSelect = () => {
       />
 
       {/* Call StaggeredDropdown */}
+      {/*
       <div className="mt-4">
         <StaggeredDropDown />
       </div>
+      */}
     </div>
   );
 };
