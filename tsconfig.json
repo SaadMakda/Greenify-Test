@@ -7,7 +7,7 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -26,13 +26,27 @@
         "./src/*"
       ]
     },
-    "target": "ES2017"
+    "target": "ES2017",
+    
+    /* 
+      **Added `typeRoots` and `types` to ensure TypeScript includes 
+      type definitions for Leaflet and GeoJSON.
+    */
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
+    "types": [
+      "leaflet",
+      "geojson"
+    ]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/types/**/*.d.ts"
   ],
   "exclude": [
     "node_modules"

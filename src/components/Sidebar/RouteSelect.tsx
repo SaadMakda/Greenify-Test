@@ -3,8 +3,9 @@
 import React from "react";
 import { usePathname } from "next/navigation"; // Import hook to get current path
 import { IconType } from "react-icons";
-import StaggeredDropDown from "./StaggeredDropdown"; // Ensure file name and path are correct
-import { FiHome, FiMessageCircle, FiBarChart } from "react-icons/fi"; // Import the new icon for the Carbon Calculator
+import { TbMessageChatbot } from "react-icons/tb";
+import { IoCalculatorOutline } from "react-icons/io5";
+import { FaMap } from "react-icons/fa";
 import Link from "next/link";
 
 export const RouteSelect = () => {
@@ -14,28 +15,25 @@ export const RouteSelect = () => {
     <div className="space-y-1">
       {/* Render Route Buttons */}
       <Route
-        Icon={FiHome}
+        Icon={IoCalculatorOutline}
         selected={pathname === "/dashboard"} // Check if the current route matches
-        title="Dashboard"
+        title="Carbon Calculator"
         href="/dashboard"
       />
       <Route
-        Icon={FiMessageCircle}
+        Icon={TbMessageChatbot}
         selected={pathname === "/chatbot"} // Check if the current route matches
         title="Chatbot"
         href="/chatbot"
       />
-      
-      {/* Add Route for Carbon Calculator */}
       <Route
-        Icon={FiBarChart} // You can change this to a more appropriate icon if you prefer
-        selected={pathname === "/carbon-calculator"} // Check if the current route matches
-        title="Carbon Calculator"
-        href="/carbon-calculator"
+        Icon={FaMap}
+        selected={pathname === "/map"} // Check if the current route matches
+        title="Map"
+        href="/map"
       />
 
-      {/* Call StaggeredDropdown */}
-      {/*
+      {/* Call StaggeredDropdown */}      {/*
       <div className="mt-4">
         <StaggeredDropDown />
       </div>
