@@ -4,7 +4,7 @@ import React from "react";
 import { usePathname } from "next/navigation"; // Import hook to get current path
 import { IconType } from "react-icons";
 import StaggeredDropDown from "./StaggeredDropdown"; // Ensure file name and path are correct
-import { FiHome, FiMessageCircle } from "react-icons/fi";
+import { FiHome, FiMessageCircle, FiBarChart } from "react-icons/fi"; // Import the new icon for the Carbon Calculator
 import Link from "next/link";
 
 export const RouteSelect = () => {
@@ -24,6 +24,14 @@ export const RouteSelect = () => {
         selected={pathname === "/chatbot"} // Check if the current route matches
         title="Chatbot"
         href="/chatbot"
+      />
+      
+      {/* Add Route for Carbon Calculator */}
+      <Route
+        Icon={FiBarChart} // You can change this to a more appropriate icon if you prefer
+        selected={pathname === "/carbon-calculator"} // Check if the current route matches
+        title="Carbon Calculator"
+        href="/carbon-calculator"
       />
 
       {/* Call StaggeredDropdown */}
