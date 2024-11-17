@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 
-// Define the valid keys for metrics
 type MetricKey =
   | "energyEfficiency"
   | "waterConservation"
@@ -23,7 +22,6 @@ export const ActivityInputs = ({ onScoreChange }: ActivityInputsProps) => {
     indoorAirQuality: { min: 0, max: 100 },
   };
 
-  // Initialize form data with default values (using the minimum values)
   const [formData, setFormData] = useState<Record<MetricKey, number>>({
     energyEfficiency: ranges.energyEfficiency.min,
     waterConservation: ranges.waterConservation.min,
@@ -34,7 +32,6 @@ export const ActivityInputs = ({ onScoreChange }: ActivityInputsProps) => {
 
   const [sustainabilityScore, setSustainabilityScore] = useState(0);
 
-  // Handle form data changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const key = name as MetricKey;
@@ -42,7 +39,6 @@ export const ActivityInputs = ({ onScoreChange }: ActivityInputsProps) => {
     setFormData((prev) => ({ ...prev, [key]: numericValue }));
   };
 
-  // Function to calculate sustainability score based on the form data
   const calculateSustainabilityScore = (data: Record<MetricKey, number>) => {
     const weights: Record<MetricKey, number> = {
       energyEfficiency: 0.30,
@@ -52,7 +48,6 @@ export const ActivityInputs = ({ onScoreChange }: ActivityInputsProps) => {
       indoorAirQuality: 0.10,
     };
 
-    // Define whether higher values are better for each metric
     const isHigherBetter: Record<MetricKey, boolean> = {
       energyEfficiency: false,
       waterConservation: true,
@@ -83,20 +78,18 @@ export const ActivityInputs = ({ onScoreChange }: ActivityInputsProps) => {
     return Math.round(totalScore * 100);
   };
 
-  // Recalculate score whenever form data changes
   useEffect(() => {
     const score = calculateSustainabilityScore(formData);
     setSustainabilityScore(score);
-    onScoreChange(score); // Send the score to the parent component
+    onScoreChange(score);
   }, [formData, onScoreChange]);
 
   return (
     <div className="p-6 border rounded-lg shadow bg-white w-full">
-      <h2 className="text-xl font-semibold mb-6 text-center">Sustainability Metrics</h2>
-      <form className="space-y-6">
-        {/* Energy Efficiency */}
+      <h2 className="text-xl font-semibold mb-8 text-center">Sustainability Metrics</h2>
+      <form className="space-y-24">
         <div>
-          <label className="block text-md font-medium mb-2" htmlFor="energyEfficiency">
+          <label className="block text-md font-medium mb-4" htmlFor="energyEfficiency">
             Energy Efficiency (kWh/㎡): <span className="font-semibold">{formData.energyEfficiency}</span>
           </label>
           <input
@@ -108,12 +101,11 @@ export const ActivityInputs = ({ onScoreChange }: ActivityInputsProps) => {
             min={ranges.energyEfficiency.min}
             max={ranges.energyEfficiency.max}
             step="1"
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer green-slider"
+            className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
           />
         </div>
-        {/* Water Conservation */}
         <div>
-          <label className="block text-md font-medium mb-2" htmlFor="waterConservation">
+          <label className="block text-md font-medium mb-4" htmlFor="waterConservation">
             Water Conservation (%): <span className="font-semibold">{formData.waterConservation}%</span>
           </label>
           <input
@@ -125,12 +117,11 @@ export const ActivityInputs = ({ onScoreChange }: ActivityInputsProps) => {
             min={ranges.waterConservation.min}
             max={ranges.waterConservation.max}
             step="1"
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer green-slider"
+            className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
           />
         </div>
-        {/* Waste Management */}
         <div>
-          <label className="block text-md font-medium mb-2" htmlFor="wasteManagement">
+          <label className="block text-md font-medium mb-4" htmlFor="wasteManagement">
             Waste Management (%): <span className="font-semibold">{formData.wasteManagement}%</span>
           </label>
           <input
@@ -142,12 +133,11 @@ export const ActivityInputs = ({ onScoreChange }: ActivityInputsProps) => {
             min={ranges.wasteManagement.min}
             max={ranges.wasteManagement.max}
             step="1"
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer green-slider"
+            className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
           />
         </div>
-        {/* Carbon Footprint */}
         <div>
-          <label className="block text-md font-medium mb-2" htmlFor="carbonFootprint">
+          <label className="block text-md font-medium mb-4" htmlFor="carbonFootprint">
             Carbon Footprint (kg CO₂): <span className="font-semibold">{formData.carbonFootprint}</span>
           </label>
           <input
@@ -159,12 +149,11 @@ export const ActivityInputs = ({ onScoreChange }: ActivityInputsProps) => {
             min={ranges.carbonFootprint.min}
             max={ranges.carbonFootprint.max}
             step="1"
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer green-slider"
+            className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
           />
         </div>
-        {/* Indoor Air Quality */}
         <div>
-          <label className="block text-md font-medium mb-2" htmlFor="indoorAirQuality">
+          <label className="block text-md font-medium mb-4" htmlFor="indoorAirQuality">
             Indoor Air Quality (%): <span className="font-semibold">{formData.indoorAirQuality}%</span>
           </label>
           <input
@@ -176,7 +165,7 @@ export const ActivityInputs = ({ onScoreChange }: ActivityInputsProps) => {
             min={ranges.indoorAirQuality.min}
             max={ranges.indoorAirQuality.max}
             step="1"
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer green-slider"
+            className="w-full h-3 rounded-lg appearance-none cursor-pointer green-slider"
           />
         </div>
       </form>
@@ -193,37 +182,37 @@ export const ActivityInputs = ({ onScoreChange }: ActivityInputsProps) => {
         }
         input[type='range'].green-slider::-webkit-slider-runnable-track {
           width: 100%;
-          height: 8px;
+          height: 10px;
           cursor: pointer;
-          background: #d1d5db; /* Tailwind gray-300 */
+          background: #d1d5db;
           border-radius: 5px;
         }
         input[type='range'].green-slider::-webkit-slider-thumb {
-          height: 20px;
-          width: 20px;
+          height: 24px;
+          width: 24px;
           border-radius: 50%;
-          background: #10b981; /* Tailwind green-500 */
+          background: #4caf50; /* Green color */
           cursor: pointer;
           -webkit-appearance: none;
-          margin-top: -6px;
+          margin-top: -7px; /* Center the thumb */
         }
         input[type='range'].green-slider::-moz-range-track {
           width: 100%;
-          height: 8px;
+          height: 10px;
           cursor: pointer;
           background: #d1d5db;
           border-radius: 5px;
         }
         input[type='range'].green-slider::-moz-range-thumb {
-          height: 20px;
-          width: 20px;
+          height: 24px;
+          width: 24px;
           border-radius: 50%;
-          background: #10b981;
+          background: #4caf50;
           cursor: pointer;
         }
         input[type='range'].green-slider::-ms-track {
           width: 100%;
-          height: 8px;
+          height: 10px;
           cursor: pointer;
           background: transparent;
           border-color: transparent;
@@ -238,10 +227,10 @@ export const ActivityInputs = ({ onScoreChange }: ActivityInputsProps) => {
           border-radius: 5px;
         }
         input[type='range'].green-slider::-ms-thumb {
-          height: 20px;
-          width: 20px;
+          height: 24px;
+          width: 24px;
           border-radius: 50%;
-          background: #10b981;
+          background: #4caf50;
           cursor: pointer;
         }
       `}</style>
