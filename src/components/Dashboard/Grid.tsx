@@ -1,22 +1,16 @@
 import React from "react";
-import { StatCards } from "./StatCards";
-import { ActivityInputs } from "./ActivityInputs";
-import { UsageRadar } from "./UsageRadar";
-import { RecentTransactions } from "./RecentTransactions";
+import { StatCards } from "../Calculator/StatCards";
+import { ActivityGraph } from "./ActivityGraph";
+import { UsageRadar } from "../Calculator/UsageRadar";
+import { RecentTransactions } from "../Calculator/RecentTransactions";
 
 export const Grid = () => {
   return (
-    <div className="px-4 grid gap-6 grid-cols-12">
-      {/* Adjust column span here */}
-      <div className="col-span-12 lg:col-span-6">
-        <ActivityInputs />
-      </div>
-      <div className="col-span-12 lg:col-span-6">
-        <UsageRadar />
-      </div>
-      <div className="col-span-12">
-        <RecentTransactions />
-      </div>
+    <div className="px-4 grid gap-3 grid-cols-12">
+      <StatCards />
+      <ActivityGraph />
+      <UsageRadar />
+      <RecentTransactions />
     </div>
   );
 };
