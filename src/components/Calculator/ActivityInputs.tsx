@@ -90,7 +90,7 @@ export const ActivityInputs = ({ onScoreChange }: ActivityInputsProps) => {
   <form className="space-y-24">
     <div>
       <label className="block text-md font-medium mb-4 text-gray-300" htmlFor="energyEfficiency">
-        Energy Efficiency (kWh/㎡): <span className="font-semibold">{formData.energyEfficiency}</span>
+        Energy Usage (kWh/㎡): <span className="font-semibold">{formData.energyEfficiency}</span>
       </label>
       <input
         type="range"

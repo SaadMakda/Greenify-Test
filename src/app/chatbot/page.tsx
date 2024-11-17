@@ -273,7 +273,7 @@ const ChatbotPage = () => {
             placeholder="Type your message"
           />
           <button
-            className={`text-white p-2 rounded ${botTyping ? 'bg-red-600' : 'bg-blue-600'}`}
+            className={`text-white p-2 rounded ${botTyping ? 'bg-violet-600' : 'bg-blue-600'}`}
             onClick={() => handleChat()}
             disabled={loading}
           >

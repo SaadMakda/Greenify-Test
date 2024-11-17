@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export const AccountToggle = () => {
   return (
@@ -9,10 +10,10 @@ export const AccountToggle = () => {
           alt="avatar"
           className="w-16 h-16 rounded"
         />
-        <div className="text-start">
+        <Link className="text-start" href={'/'}>
           <span className="text-2xl font-bold block text-white">Greenify</span>
           <span className="text-xs block text-gray-400"></span>
-        </div>
+        </Link>
       </button>
     </div>
   );  
